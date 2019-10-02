@@ -76,4 +76,22 @@ describe('app routes', () => {
       });
   });
 
+  it('delete item by id', async() => {
+    const item = await Item.create({ 
+      category: 'pets', 
+      name: 'cat tree', 
+      count: 3 
+    });
+    return request(app)
+      .delete(`/api/v1/items/${item._id}`)
+      .then(res => {
+        expect(res.body).toEqual({
+          _id: expect.any(String),
+          category: 'pets', 
+          name: 'cat tree', 
+          count: 3 
+        });
+      });
+  });
+
 });
