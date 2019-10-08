@@ -6,7 +6,6 @@ const connect = require('../lib/utils/connect');
 const mongoose = require('mongoose');
 
 const Item = require('../lib/models/Item');
-
 describe('app routes', () => {
   beforeAll(() => {
     connect();
@@ -26,22 +25,22 @@ describe('app routes', () => {
       .send({ 
         category: 'clothing', 
         name: 't-shirt', 
-        count: 10 
+        quantity: 10 
       })
       .then(res => {
         expect(res.body).toEqual({
           _id: expect.any(String), 
           category: 'clothing', 
           name: 't-shirt', 
-          count: 10 });
+          quantity: 10 });
       });
   });
 
   it('gets all items', async() => {
     const items = JSON.parse(JSON.stringify(await Item.create([
-      { category: 'outdoor', name: 'hiking boots', count: 2 },
-      { category: 'kitchen', name: 'skillet', count: 1 },
-      { category: 'clothing', name: 'dress pants', count: 4 },
+      { category: 'outdoor', name: 'hiking boots', quantity: 2 },
+      { category: 'kitchen', name: 'skillet', quantity: 1 },
+      { category: 'clothing', name: 'dress pants', quantity: 4 },
     ])));
     return request(app)
       .get('/api/v1/items')
@@ -51,27 +50,27 @@ describe('app routes', () => {
             _id: item._id.toString(),
             category: item.category,
             name: item.name,
-            count: item.count
+            quantity: item.quantity
           });
         });
       });
   });
 
-  it('update count of item', async() => {
+  it('update quantity of item', async() => {
     const item = await Item.create({ 
       category: 'bathroom', 
       name: 'soap', 
-      count: 10 
+      quantity: 10 
     });
     return request(app)
       .patch(`/api/v1/items/${item._id}`)
-      .send({ count: 3 })
+      .send({ quantity: 3 })
       .then(res => {
         expect(res.body).toEqual({
           _id: expect.any(String),
           category: 'bathroom',
           name: 'soap',
-          count: 3
+          quantity: 3
         });
       });
   });
@@ -80,7 +79,7 @@ describe('app routes', () => {
     const item = await Item.create({ 
       category: 'pets', 
       name: 'cat tree', 
-      count: 3 
+      quantity: 3 
     });
     return request(app)
       .delete(`/api/v1/items/${item._id}`)
@@ -89,7 +88,7 @@ describe('app routes', () => {
           _id: expect.any(String),
           category: 'pets', 
           name: 'cat tree', 
-          count: 3 
+          quantity: 3 
         });
       });
   });
