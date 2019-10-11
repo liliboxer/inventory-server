@@ -23,14 +23,15 @@ describe('app routes', () => {
     return request(app)
       .post('/api/v1/items')
       .send({ 
-        category: 'clothing', 
+        category: 'Clothing', 
         name: 't-shirt', 
         quantity: 10 
       })
       .then(res => {
+        console.log(res.body);
         expect(res.body).toEqual({
           _id: expect.any(String), 
-          category: 'clothing', 
+          category: 'Clothing', 
           name: 't-shirt', 
           quantity: 10 });
       });
