@@ -28,7 +28,6 @@ describe('app routes', () => {
         quantity: 10 
       })
       .then(res => {
-        console.log(res.body);
         expect(res.body).toEqual({
           _id: expect.any(String), 
           category: 'Clothing', 
@@ -93,5 +92,4 @@ describe('app routes', () => {
         });
       });
   });
-
 });
