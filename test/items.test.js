@@ -56,6 +56,24 @@ describe('app routes', () => {
       });
   });
 
+  it('gets item by ID', async() => {
+    const item = await Item.create({ 
+      category: 'sentimental', 
+      name: 'Max', 
+      quantity: 1 
+    });
+    return request(app)
+      .get(`/api/v1/items/${item._id}`)
+      .then(res => {
+        expect(res.body).toEqual({
+          _id: expect.any(String),
+          category: 'sentimental', 
+          name: 'Max', 
+          quantity: 1 
+        });
+      });
+  });
+
   it('update quantity of item', async() => {
     const item = await Item.create({ 
       category: 'bathroom', 
